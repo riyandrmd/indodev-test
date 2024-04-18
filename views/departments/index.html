@@ -45,7 +45,7 @@
     <table class="table table-bordered mt-2 text-center">
       <thead>
         <tr>
-          <th>Code</th>
+          <th>Id</th>
           <th>Name</th>
           <th>Action</th>
         </tr>
@@ -53,11 +53,11 @@
       <tbody>
         {{ range .departments }}
         <tr>
-          <td>{{ .DepartmentCode }}</td>
+          <td>{{ .DepartmentId }}</td>
           <td>{{ .DepartmentName }}</td>
           <td>
-            <a href="/departments/edit?id={{ .DepartmentCode }}" class="btn btn-warning text-light">Edit</a>
-            <a href="/departments/delete?id={{ .DepartmentCode }}" class="btn btn-danger text-light" onclick="return confirm('Are you sure want to delete this Department ?')">Delete</a>
+            <a href="/departments/edit?id={{ .DepartmentId }}" class="btn btn-warning text-light">Edit</a>
+            <a href="/departments/delete?id={{ .DepartmentId }}" class="btn btn-danger text-light" onclick="return confirm('Are you sure want to delete this Department ?')">Delete</a>
           </td>
         </tr>
         {{ end }}

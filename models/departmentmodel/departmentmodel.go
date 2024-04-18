@@ -17,7 +17,7 @@ func GetAll() []entities.Departments {
 
 	for rows.Next() {
 		var department entities.Departments
-		if err := rows.Scan(&department.DepartmentCode, &department.DepartmentName); err != nil {
+		if err := rows.Scan(&department.DepartmentId, &department.DepartmentName); err != nil {
 			panic(err)
 		}
 
@@ -29,9 +29,9 @@ func GetAll() []entities.Departments {
 
 func Insert(department entities.Departments) bool {
 	result, err := config.DB.Exec(`
-		INSERT INTO Departments (DepartmentCode, DepartmentName)
+		INSERT INTO Departments (DepartmentId, DepartmentName)
 		VALUES (?, ?)`,
-		department.DepartmentCode,
+		department.DepartmentId,
 		department.DepartmentName,
 	)
 
@@ -48,10 +48,10 @@ func Insert(department entities.Departments) bool {
 }
 
 func Detail(id string) entities.Departments {
-	row := config.DB.QueryRow(`SELECT * FROM Departments WHERE DepartmentCode = ?`, id)
+	row := config.DB.QueryRow(`SELECT * FROM Departments WHERE DepartmentId = ?`, id)
 
 	var department entities.Departments
-	if err := row.Scan(&department.DepartmentCode, &department.DepartmentName); err != nil {
+	if err := row.Scan(&department.DepartmentId, &department.DepartmentName); err != nil {
 		panic(err.Error())
 	}
 
@@ -59,7 +59,7 @@ func Detail(id string) entities.Departments {
 }
 
 func Update(id string, department entities.Departments) bool {
-	query, err := config.DB.Exec("UPDATE Departments SET DepartmentName = ? WHERE DepartmentCode = ?", department.DepartmentName, id)
+	query, err := config.DB.Exec("UPDATE Departments SET DepartmentName = ? WHERE DepartmentId = ?", department.DepartmentName, id)
 	if err != err {
 		panic(err)
 	}
@@ -73,6 +73,6 @@ func Update(id string, department entities.Departments) bool {
 }
 
 func Delete(id string) error {
-	_, err := config.DB.Exec("DELETE FROM Departments WHERE DepartmentCode = ?", id)
+	_, err := config.DB.Exec("DELETE FROM Departments WHERE DepartmentId = ?", id)
 	return err
 }

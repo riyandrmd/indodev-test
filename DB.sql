@@ -21,14 +21,14 @@ USE `indodev`;
 DROP TABLE IF EXISTS `departments`;
 
 CREATE TABLE `departments` (
-  `DepartmentCode` varchar(10) NOT NULL,
+  `DepartmentId` varchar(10) NOT NULL,
   `DepartmentName` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`DepartmentCode`)
+  PRIMARY KEY (`DepartmentId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `departments` */
 
-insert  into `departments`(`DepartmentCode`,`DepartmentName`) values 
+insert  into `departments`(`DepartmentId`,`DepartmentName`) values 
 ('BOD00001','Board of Direcast');
 
 /*Table structure for table `divisions` */
@@ -36,54 +36,50 @@ insert  into `departments`(`DepartmentCode`,`DepartmentName`) values
 DROP TABLE IF EXISTS `divisions`;
 
 CREATE TABLE `divisions` (
-  `DivisionCode` varchar(10) NOT NULL,
+  `DivisionId` varchar(10) NOT NULL,
   `DivisionName` varchar(255) DEFAULT NULL,
-  `DepartmentCode` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`DivisionCode`),
-  KEY `DepartmentCode` (`DepartmentCode`),
-  CONSTRAINT `divisions_ibfk_1` FOREIGN KEY (`DepartmentCode`) REFERENCES `departments` (`DepartmentCode`)
+  `DepartmentId` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`DivisionId`),
+  KEY `DepartmentId` (`DepartmentId`),
+  CONSTRAINT `divisions_ibfk_1` FOREIGN KEY (`DepartmentId`) REFERENCES `departments` (`DepartmentId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `divisions` */
 
-insert  into `divisions`(`DivisionCode`,`DivisionName`,`DepartmentCode`) values 
-('DVS00001','Information Technology','BOD00001');
+insert  into `divisions`(`DivisionId`,`DivisionName`,`DepartmentId`) values 
+('DVS00001','Information Technology','BOD00001'),
+('DVS00003','Marketing and Sales','BOD00001'),
+('PURC','Purchasing','BOD00001');
 
 /*Table structure for table `employees` */
 
 DROP TABLE IF EXISTS `employees`;
 
 CREATE TABLE `employees` (
-  `EmployeeID` varchar(10) NOT NULL,
+  `EmployeeId` varchar(10) NOT NULL,
   `EmployeeName` varchar(255) DEFAULT NULL,
-  `RoleCode` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`EmployeeID`),
-  KEY `RoleCode` (`RoleCode`),
-  CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`RoleCode`) REFERENCES `roles` (`RoleCode`)
+  `RoleId` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`EmployeeId`),
+  KEY `RoleId` (`RoleId`),
+  CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`RoleId`) REFERENCES `roles` (`RoleId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `employees` */
-
-insert  into `employees`(`EmployeeID`,`EmployeeName`,`RoleCode`) values 
-('EMP001','Endah','ITSDERP');
 
 /*Table structure for table `roles` */
 
 DROP TABLE IF EXISTS `roles`;
 
 CREATE TABLE `roles` (
-  `RoleCode` varchar(10) NOT NULL,
+  `RoleId` varchar(10) NOT NULL,
   `RoleName` varchar(255) DEFAULT NULL,
-  `DivisionCode` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`RoleCode`),
-  KEY `DivisionCode` (`DivisionCode`),
-  CONSTRAINT `roles_ibfk_1` FOREIGN KEY (`DivisionCode`) REFERENCES `divisions` (`DivisionCode`)
+  `DivisionId` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`RoleId`),
+  KEY `DivisionId` (`DivisionId`),
+  CONSTRAINT `roles_ibfk_1` FOREIGN KEY (`DivisionId`) REFERENCES `divisions` (`DivisionId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `roles` */
-
-insert  into `roles`(`RoleCode`,`RoleName`,`DivisionCode`) values 
-('ITSDERP','ERP Development','DVS00001');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -33,7 +33,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		var department entities.Departments
 
-		department.DepartmentCode = r.FormValue("code")
+		department.DepartmentId = r.FormValue("id")
 		department.DepartmentName = r.FormValue("name")
 
 		if ok := departmentmodel.Insert(department); !ok {
