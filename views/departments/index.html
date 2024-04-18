@@ -39,7 +39,30 @@
   <!-- End of Navbar -->
 
   <div class="container mt-3">
-    <h1>Home</h1>
+    <h2>Departments</h2>
+    <hr />
+    <a href="/departments/add" class="btn btn-primary">Add Departments</a>
+    <table class="table table-bordered mt-2 text-center">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ range .departments }}
+        <tr>
+          <td>{{ .DepartmentCode }}</td>
+          <td>{{ .DepartmentName }}</td>
+          <td>
+            <a href="/departments/edit?id={{ .DepartmentCode }}" class="btn btn-warning text-light">Edit</a>
+            <a href="/departments/delete?id={{ .DepartmentCode }}" class="btn btn-danger text-light" onclick="return confirm('Are you sure want to delete this Department ?')">Delete</a>
+          </td>
+        </tr>
+        {{ end }}
+      </tbody>
+    </table>
   </div>
 </body>
 
